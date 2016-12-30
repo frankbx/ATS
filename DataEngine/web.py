@@ -123,22 +123,18 @@ class WebDataEngine():
                     # Append data to the file
                     delta_data.to_csv(filename, mode='a', header=None)
                     # print(delta_data)
-                    print(code, 'updated')
+                    print(code, 'updated auttype None')
             else:
                 data = ts.get_hist_data(code, ktype=self.ktype, retry_count=20, pause=2)
                 data['code'] = code
                 data.sort_index(axis=0, inplace=True)
                 data.to_csv(filename)
-                print(code)
+                print(code, 'created auttype None')
 
 
 if __name__ == '__main__':
-    # engine = WebDataEngine('W')
-    # engine.init_data_warehouse()
     engine = WebDataEngine()
     engine.get_basics()
     engine.get_market_data()
-    # engine.get_no_fq_data()
-    # engine.init_data_warehouse()
-    # engine.get_basics()
-    # engine.get_online_data('000681')
+    engine.get_no_fq_data()
+    engine.init_data_warehouse()
