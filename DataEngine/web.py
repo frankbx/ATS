@@ -104,37 +104,25 @@ class WebDataEngine():
         if not os.path.exists(directory):
             os.mkdir(directory)
         for code in codes:
+
             filename = directory + add_suffix(code) + '.csv'
             if os.path.exists(filename):
-                # get the latest date
-                existing_data = pd.read_csv(filename)
-                row, col = existing_data.shape
-                latest_date = existing_data.date[row - 1]
-                # retrieve data from the latest date
-                data = ts.get_hist_data(code=code, ktype=self.ktype, start=latest_date, retry_count=30, pause=2)
-                data.sort_index(inplace=True)
-                # print(data, data.shape)
-                r, c = data.shape
-                # discard duplicated data of the last day if there's more than 1 row
-                if r > 1:
-                    # Locate by integer, not index
-                    delta_data = data.iloc[1:r].copy()
-                    delta_data['code'] = code
-                    # Append data to the file
-                    delta_data.to_csv(filename, mode='a', header=None)
-                    # print(delta_data)
-                    print(code, 'updated auttype None')
+                pass
             else:
-                data = ts.get_hist_data(code, ktype=self.ktype, retry_count=20, pause=2)
+                data = ts.get_hist_data(code)
                 data['code'] = code
                 data.sort_index(axis=0, inplace=True)
                 data.to_csv(filename)
-                print(code, 'created auttype None')
+            print(code)
 
 
 if __name__ == '__main__':
+    # engine = WebDataEngine('W')
+    # engine.init_data_warehouse()
     engine = WebDataEngine()
     engine.get_basics()
     engine.get_market_data()
     engine.get_no_fq_data()
     engine.init_data_warehouse()
+    # engine.get_basics()
+    # engine.get_online_data('000681')œ
