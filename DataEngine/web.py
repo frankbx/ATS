@@ -84,7 +84,7 @@ class WebDataEngine():
         today = ts.get_today_all()
         today['date'] = str(date.today())
         if os.path.exists('daily_overview.csv'):
-            today.to_csv('daily_overview.csv', mode='a', encoding='utf8', index=False)
+            today.to_csv('daily_overview.csv', mode='a', encoding='utf8', index=False, header=False)
         else:
             today.to_csv('daily_overview.csv', encoding='utf8', index=False)
 
@@ -93,7 +93,7 @@ class WebDataEngine():
         basics = ts.get_stock_basics()
         basics['date'] = str(date.today())
         if os.path.exists('basics.csv'):
-            basics.to_csv('basics.csv', mode='a', encoding='utf8')
+            basics.to_csv('basics.csv', mode='a', encoding='utf8', header=False)
         else:
             basics.to_csv('basics.csv', encoding='utf8')
 
