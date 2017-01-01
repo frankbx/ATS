@@ -104,7 +104,6 @@ class WebDataEngine():
         if not os.path.exists(directory):
             os.mkdir(directory)
         for code in codes:
-
             filename = directory + add_suffix(code) + '.csv'
             if os.path.exists(filename):
                 pass
