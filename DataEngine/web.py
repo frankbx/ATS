@@ -97,7 +97,6 @@ class WebDataEngine():
         else:
             basics.to_csv('basics.csv', encoding='utf8')
 
-    # TODO add code to incrementally update data
     def get_no_fq_data(self):
         codes = self.basics.index
         directory = '../data/daily_bfq/'
@@ -134,7 +133,7 @@ class WebDataEngine():
 
 if __name__ == '__main__':
     engine = WebDataEngine()
-    engine.get_basics()
-    engine.get_market_data()
+    # engine.get_basics()
+    # engine.get_market_data()
     engine.get_no_fq_data()
     engine.init_data_warehouse()
