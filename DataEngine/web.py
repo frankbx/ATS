@@ -133,7 +133,7 @@ class WebDataEngine():
 
 if __name__ == '__main__':
     engine = WebDataEngine()
-    # engine.get_basics()
-    # engine.get_market_data()
+    engine.get_basics()
+    engine.get_market_data()
     engine.get_no_fq_data()
     engine.init_data_warehouse()
