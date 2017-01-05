@@ -97,6 +97,7 @@ class WebDataEngine():
         else:
             basics.to_csv('basics.csv', encoding='utf8')
 
+    #TODO add code to use multiple threads
     def get_no_fq_data(self):
         codes = self.basics.index
         directory = '../data/daily_bfq/'
