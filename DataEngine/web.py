@@ -123,13 +123,13 @@ class WebDataEngine():
                     # Append data to the file
                     delta_data.to_csv(filename, mode='a', header=None)
                     # print(delta_data)
-                    print(code, 'updated auttype None')
+                    print(code, 'updated aut type None')
             else:
                 data = ts.get_hist_data(code, ktype=self.ktype, retry_count=20, pause=2)
                 data['code'] = code
                 data.sort_index(axis=0, inplace=True)
                 data.to_csv(filename)
-                print(code, 'created auttype None')
+                print(code, 'created aut type None')
 
 
 if __name__ == '__main__':
