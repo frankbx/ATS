@@ -1,7 +1,5 @@
 import os
-import threading
 from datetime import date
-from time import ctime, time
 
 import pandas as pd
 import tushare as ts
@@ -44,9 +42,9 @@ class WebDataEngine():
         # print(len(code_list))
         for code in code_list:
             # print(code)
-            self.get_online_data(code)
+            self.get_k_data(code)
 
-    def get_online_data(self, code, start=None, end=None):
+    def get_k_data(self, code, start=None, end=None):
         filename = self.directory + add_suffix(code) + '.csv'
         # print(code)
         # check if the file already exists
@@ -97,7 +95,6 @@ class WebDataEngine():
         else:
             basics.to_csv('basics.csv', encoding='utf8')
 
-    #TODO add code to use multiple threads
     def get_no_fq_data(self):
         codes = self.basics.index
         directory = '../data/daily_bfq/'
@@ -123,13 +120,19 @@ class WebDataEngine():
                     # Append data to the file
                     delta_data.to_csv(filename, mode='a', header=None)
                     # print(delta_data)
-                    print(code, 'updated aut type None')
+                    print(code, 'updated auttype None')
             else:
                 data = ts.get_hist_data(code, ktype=self.ktype, retry_count=20, pause=2)
                 data['code'] = code
-                data.sort_index(axis=0, inplace=True)
-                data.to_csv(filename)
-                print(code, 'created aut type None')
+                if len(data) >= 1:
+                    data.sort_index(axis=0, inplace=True)
+                    data.to_csv(filename)
+                    print(code, 'created auttype None')
+
+    def get_tick_data(self):
+        codes = self.basics.index
+        if not os.path.exists(TICK_DATA_DIR):
+            os.mkdir(TICK_DATA_DIR)
 
 
 if __name__ == '__main__':
