@@ -1,9 +1,8 @@
-from PyQt5.QtWidgets import *
-from PyQt5 import QtGui
-from PyQt5 import QtCore
-from PyQt5.QtCore import QTimer
-import pyqtgraph as pg
 import sys
+
+from PyQt5 import QtGui
+from PyQt5.QtWidgets import *
+
 
 class ATSMain(QMainWindow):
     def __init__(self, eventEngine=None, dataEngine=None):

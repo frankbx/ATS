@@ -3,10 +3,11 @@ from eventEngine import *
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 
 
 class BasicTable(QTableWidget):
-    signal = QtCore.pyqtSignal(type(Event()))
+    signal = pyqtSignal(type(Event()))
 
     def __init__(self, dataEngine=None, eventEngine=None, parent=None):
         super(BasicTable, self).__init__(parent)
