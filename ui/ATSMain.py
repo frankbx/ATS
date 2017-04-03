@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5 import QtGui
+from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
 
@@ -19,7 +19,6 @@ class ATSMain(QMainWindow):
         # self.initStatusBar()
 
     def initCentral(self):
-        """初始化中心区域"""
         # widgetMarketM, dockMarketM = self.createDock(MarketMonitor, u'行情', QtCore.Qt.RightDockWidgetArea)
         # widgetLogM, dockLogM = self.createDock(LogMonitor, u'日志', QtCore.Qt.BottomDockWidgetArea)
         # widgetErrorM, dockErrorM = self.createDock(ErrorMonitor, u'错误', QtCore.Qt.BottomDockWidgetArea)
@@ -40,7 +39,7 @@ class ATSMain(QMainWindow):
         # widgetPositionM.itemDoubleClicked.connect(widgetTradingW.closePosition)
 
         # 保存默认设置
-        # self.saveWindowSettings('default')
+        self.saveWindowSettings('default')
         pass
 
     def initMenu(self):
@@ -70,6 +69,11 @@ class ATSMain(QMainWindow):
         dock.setFeatures(dock.DockWidgetFloatable | dock.DockWidgetMovable)
         self.addDockWidget(widgetArea, dock)
         return widget, dock
+
+    def saveWindowSettings(self, settingName):
+        settings = QSettings('ATSMain', settingName)
+        settings.setValue('state', self.saveState())
+        settings.setValue('geometry', self.saveGeometry())
 
 
 class AboutWidget(QDialog):
