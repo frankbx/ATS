@@ -52,3 +52,6 @@ class ATSMain(QMainWindow):
         dock.setFeatures(dock.DockWidgetFloatable | dock.DockWidgetMovable)
         self.addDockWidget(widgetArea, dock)
         return widget, dock
+
+if __name__ == '__main__':
+    pass

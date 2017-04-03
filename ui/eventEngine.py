@@ -1,13 +1,9 @@
-# encoding: UTF-8
-
-# 系统模块
+from collections import defaultdict
 from queue import Queue, Empty
 from threading import Thread
 from time import sleep
-from collections import defaultdict
-
-# 第三方模块
 from PyQt5.QtCore import QTimer
+from eventType import *
 
 
 ########################################################################
@@ -75,7 +71,8 @@ class EventEngine(object):
         """引擎运行"""
         while self.__active == True:
             try:
-                event = self.__queue.get(block=True, timeout=1)  # 获取事件的阻塞时间设为1秒
+                event = self.__queue.get(
+                    block=True, timeout=1)  # 获取事件的阻塞时间设为1秒
                 self.__process(event)
             except Empty:
                 pass
@@ -147,7 +144,7 @@ class EventEngine(object):
     # ----------------------------------------------------------------------
     def unregister(self, type_, handler):
         """注销事件处理函数监听"""
-        # 尝试获取该事件类型对应的处理函数列表，若无则忽略该次注销请求   
+        # 尝试获取该事件类型对应的处理函数列表，若无则忽略该次注销请求
         handlerList = self.__handlers[type_]
 
         # 如果该函数存在于列表中，则移除
@@ -212,7 +209,8 @@ class EventEngine2(object):
         """引擎运行"""
         while self.__active == True:
             try:
-                event = self.__queue.get(block=True, timeout=1)  # 获取事件的阻塞时间设为1秒
+                event = self.__queue.get(
+                    block=True, timeout=1)  # 获取事件的阻塞时间设为1秒
                 self.__process(event)
             except Empty:
                 pass
@@ -290,7 +288,7 @@ class EventEngine2(object):
     # ----------------------------------------------------------------------
     def unregister(self, type_, handler):
         """注销事件处理函数监听"""
-        # 尝试获取该事件类型对应的处理函数列表，若无则忽略该次注销请求   
+        # 尝试获取该事件类型对应的处理函数列表，若无则忽略该次注销请求
         handlerList = self.__handlers[type_]
 
         # 如果该函数存在于列表中，则移除
