@@ -3,7 +3,7 @@ from PyQt5 import QtGui
 from PyQt5 import QtCore
 from PyQt5.QtCore import QTimer
 import pyqtgraph as pg
-
+import sys
 
 class ATSMain(QMainWindow):
     def __init__(self, eventEngine=None, dataEngine=None):
@@ -17,7 +17,7 @@ class ATSMain(QMainWindow):
         self.setWindowTitle("Auto Trading System")
         self.initCentral()
         self.initMenu()
-        self.initStatusBar()
+        # self.initStatusBar()
 
     def initCentral(self):
         """初始化中心区域"""
@@ -41,10 +41,29 @@ class ATSMain(QMainWindow):
         # widgetPositionM.itemDoubleClicked.connect(widgetTradingW.closePosition)
 
         # 保存默认设置
-        self.saveWindowSettings('default')
+        # self.saveWindowSettings('default')
+        pass
+
+    def initMenu(self):
+        menubar = self.menuBar()
+        fileMenu = menubar.addMenu("File")
+        fileMenu.addAction(self.createAction('Quit', self.close))
+        helpMenu = menubar.addMenu("Help")
+        helpMenu.addAction(self.createAction('About', self.onAbout))
+
+    def createAction(self, actionName, function):
+        action = QAction(actionName, self)
+        action.triggered.connect(function)
+        return action
+
+    def onAbout(self):
+        try:
+            self.widgetDict['aboutW'].show()
+        except KeyError:
+            self.widgetDict['aboutW'] = AboutWidget(self)
+            self.widgetDict['aboutW'].show()
 
     def createDock(self, widgetClass, widgetName, widgetArea):
-        """创建停靠组件"""
         widget = widgetClass(self.mainEngine, self.eventEngine)
         dock = QtGui.QDockWidget(widgetName)
         dock.setWidget(widget)
@@ -52,3 +71,36 @@ class ATSMain(QMainWindow):
         dock.setFeatures(dock.DockWidgetFloatable | dock.DockWidgetMovable)
         self.addDockWidget(widgetArea, dock)
         return widget, dock
+
+
+class AboutWidget(QDialog):
+
+    def __init__(self, parent=None):
+        super(AboutWidget, self).__init__(parent)
+
+        self.initUi()
+
+    def initUi(self):
+        self.setWindowTitle("About")
+
+        text = u"""
+            Developed by ...
+            """
+
+        label = QLabel()
+        label.setText(text)
+        label.setMinimumWidth(500)
+
+        vbox = QVBoxLayout()
+        vbox.addWidget(label)
+
+        self.setLayout(vbox)
+
+
+if __name__ == '__main__':
+    import qdarkstyle
+    app = QApplication(sys.argv)
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    mainWindow = ATSMain()
+    mainWindow.showMaximized()
+    sys.exit(app.exec_())
