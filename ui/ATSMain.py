@@ -18,32 +18,14 @@ class ATSMain(QMainWindow):
         self.initMenu()
         # self.initStatusBar()
 
-    def initCentral(self):
-        # widgetMarketM, dockMarketM = self.createDock(MarketMonitor, u'行情', QtCore.Qt.RightDockWidgetArea)
-        # widgetLogM, dockLogM = self.createDock(LogMonitor, u'日志', QtCore.Qt.BottomDockWidgetArea)
-        # widgetErrorM, dockErrorM = self.createDock(ErrorMonitor, u'错误', QtCore.Qt.BottomDockWidgetArea)
-        # widgetTradeM, dockTradeM = self.createDock(TradeMonitor, u'成交', QtCore.Qt.BottomDockWidgetArea)
-        # widgetOrderM, dockOrderM = self.createDock(OrderMonitor, u'委托', QtCore.Qt.RightDockWidgetArea)
-        # widgetPositionM, dockPositionM = self.createDock(PositionMonitor, u'持仓', QtCore.Qt.BottomDockWidgetArea)
-        # widgetAccountM, dockAccountM = self.createDock(AccountMonitor, u'资金', QtCore.Qt.BottomDockWidgetArea)
-        # widgetTradingW, dockTradingW = self.createDock(TradingWidget, u'交易', QtCore.Qt.LeftDockWidgetArea)
-        #
-        # self.tabifyDockWidget(dockTradeM, dockErrorM)
-        # self.tabifyDockWidget(dockTradeM, dockLogM)
-        # self.tabifyDockWidget(dockPositionM, dockAccountM)
-        #
-        # dockTradeM.raise_()
-        # dockPositionM.raise_()
-        #
-        # # 连接组件之间的信号
-        # widgetPositionM.itemDoubleClicked.connect(widgetTradingW.closePosition)
-
+    def initCentral(self): 
         # 保存默认设置
         self.saveWindowSettings('default')
         pass
 
     def initMenu(self):
         menubar = self.menuBar()
+        menubar.setNativeMenuBar(False)
         fileMenu = menubar.addMenu("File")
         fileMenu.addAction(self.createAction('Quit', self.close))
         helpMenu = menubar.addMenu("Help")
@@ -86,8 +68,8 @@ class AboutWidget(QDialog):
     def initUi(self):
         self.setWindowTitle("About")
 
-        text = u"""
-            Developed by ...
+        text = """
+            Developed by Programmer, For Traders
             """
 
         label = QLabel()
